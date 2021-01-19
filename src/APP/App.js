@@ -1,10 +1,10 @@
-import React from "react";
-import Section from "./section/Section";
-import FeetbackOptions from "./feetbackOptions/FeetbackOptions";
-import Statistics from "./statistics/Statistics";
-import Notification from "./notification/Notification";
+import React, { Component } from "react";
+import Section from "./section";
+import FeetbackOptions from "./feetbackOptions";
+import Statistics from "./statistics";
+import Notification from "./notification";
 
-class App extends React.Component {
+class App extends Component {
   static defaultProps = {
     initialValueOfButtonGood: 0,
     initialValueOfButtonNeutral: 0,
@@ -36,6 +36,7 @@ class App extends React.Component {
 
   render() {
     let total = this.countTotal();
+    console.log(total);
     // let percentage = this.countPercentage();
     return (
       <div>
@@ -45,27 +46,21 @@ class App extends React.Component {
             onLeaveFeetback={this.handleFeedback}
           ></FeetbackOptions>
         </Section>
-
         <Section>
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={total}
-            positivePercentage={this.countPercentage()}
-          ></Statistics>
+          {total > 0 ? (
+            <Section title={"Statistics"}>
+              <Statistics
+                good={this.state.good}
+                neutral={this.state.neutral}
+                bad={this.state.bad}
+                total={total}
+                positivePercentage={this.countPercentage()}
+              ></Statistics>
+            </Section>
+          ) : (
+            <Notification message={"No feedback given"}></Notification>
+          )}
         </Section>
-        <Section>
-          <Notification message={"No feedback given"}></Notification>
-        </Section>
-
-        {/* <h2>Statistics</h2>
-
-        <p>Good: {this.state.good}</p>
-        <p>Neutral: {this.state.neutral}</p>
-        <p>Bad: {this.state.bad}</p>
-        <p>Total: {total}</p>
-        <p>Positive feetback: {this.countPercentage()}%</p> */}
       </div>
     );
   }
