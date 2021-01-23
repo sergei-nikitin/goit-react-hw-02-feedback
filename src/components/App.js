@@ -46,9 +46,9 @@ class App extends Component {
             onLeaveFeetback={this.handleFeedback}
           ></FeetbackOptions>
         </Section>
-        <Section>
+        <Section title={"Statistics"}>
           {total > 0 ? (
-            <Section title={"Statistics"}>
+            <Section>
               <Statistics
                 good={this.state.good}
                 neutral={this.state.neutral}
